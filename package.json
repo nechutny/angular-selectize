@@ -3,5 +3,8 @@
   "description": "This is an Angular.js directive for Brian Reavis's selectize jQuery plugin. It supports all of Selectize's features",
   "version": "v3.0.1",
   "private": false,
-  "main": "dist/angular-selectize.js"
+  "main": "dist/angular-selectize.js",
+  "dependencies": {
+    "selectize": ">=0.12.1"
+  }
 }
