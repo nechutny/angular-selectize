@@ -7,7 +7,7 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
   return {
     restrict: 'EA',
     require: '^ngModel',
-    scope: { ngModel: '=', config: '=?', options: '=?', ngDisabled: '=', ngRequired: '&' },
+    scope: { ngModel: '=', config: '=?', options: '=?', ngDisabled: '=', ngRequired: '&', tabindex: '<?' },
     link: function(scope, element, attrs, modelCtrl) {
 
       var selectize,
@@ -92,8 +92,17 @@ angular.module('selectize', []).value('selectizeConfig', {}).directive("selectiz
         scope.$watchCollection('options', setSelectizeOptions);
         scope.$watch('ngModel', setSelectizeValue);
         scope.$watch('ngDisabled', toggle);
+        
+        scope.$watch('tabindex', (value) => {
+			// Wait to propagate selectize to DOM
+			setTimeout(() => {
+				const el = element.parent().find('input[type="text"]');
+				el.attr("tabindex", value);
+			}, 0);
+		});
       };
 
+        
       element.selectize(settings);
 
       element.on('$destroy', function() {
